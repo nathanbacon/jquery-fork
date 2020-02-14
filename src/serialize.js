@@ -122,10 +122,19 @@ jQuery.fn.extend( {
 
 			if ( Array.isArray( val ) ) {
 				return jQuery.map( val, function( val ) {
+					if ( jQuery( elem ).attr( "type" ) === "checkbox" ) {
+						return {
+							name: elem.name,
+							value: jQuery( elem ).prop( "checked" ) ? "1" : "0"
+						};
+					}
 					return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 				} );
 			}
 
+			if ( jQuery( elem ).attr( "type" ) === "checkbox" ) {
+				return { name: elem.name, value: jQuery( elem ).prop( "checked" ) ? "1" : "0" };
+			}
 			return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 		} ).get();
 	}
